@@ -1,0 +1,25 @@
+.form-check {
+    margin-bottom: .5rem;
+}
+
+.progress{
+	margin-left: auto;
+	margin-right: auto;
+    height: 0.5rem;
+
+}
+
+.button-groupe-inscription{
+	display: flex;
+}
+.button-groupe-inscription button:nth-child(1){
+	flex-grow: 1;
+}
+.button-groupe-inscription button:nth-child(2){
+	flex-grow: 4;
+	margin-left: 5px
+}
+.alert-success{
+    margin-left: auto;
+    margin-right: auto;
+}

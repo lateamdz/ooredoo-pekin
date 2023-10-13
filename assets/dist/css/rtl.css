@@ -1,0 +1,59 @@
+@font-face {
+    font-family: NotoKufiArabic;
+    src: url(../../fonts/NotoKufiArabic.ttf);
+}
+
+body {
+    font-family: 'NotoKufiArabic', sans-serif;
+    direction: rtl;
+}
+
+.font-monospace {
+    font-family: 'NotoKufiArabic', serif !important;
+    font-size: 1.2em !important;
+}
+
+/*.ar .fw-bold {*/
+/*    !*font-family: 'Almarai', sans-serif !important;*!*/
+/*    font-weight: bold !important;*/
+/*}*/
+
+kbd {
+    direction: rtl;
+    font-family: 'Almarai', sans-serif;
+    font-size: inherit
+
+}
+
+.list-inline-item:not(:last-child) {
+    margin-left: .5rem;
+}
+
+.button-groupe-inscription button:nth-child(2) {
+    margin-left: 0;
+    margin-right: 5px
+}
+
+.nav-item.change-lang {
+    border: none;
+    border-left: none;
+    border-right: 1px solid #aaaaaa4d;
+}
+
+/*====================================================================================================================*/
+.ar h1.fw-bold{
+    line-height: inherit;
+}
+/*.ar .hero-section .bg-logo .volume-icon{*/
+/*    right:auto;*/
+/*    left: 20px;*/
+/*    bottom: 20px;*/
+/*}*/
+
+.ar footer .list-inline {
+    padding: 0;
+}
+
+@media only screen and (max-width: 768px) {
+
+}
