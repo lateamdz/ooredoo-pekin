@@ -103,6 +103,9 @@ body {
     background-color: white;
     color: var(--color-red);
 }
+footer .list-inline-item a{
+    text-decoration: none;
+}
 
 @media only screen and (max-width: 991px) {
     .nav-item.change-lang {
