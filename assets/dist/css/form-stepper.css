@@ -1,0 +1,112 @@
+.form-stepper{
+    height: 100%;
+    width: 100%;
+    padding: 16px;
+}
+
+.form-stepper .form-stepper-header{
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+    isolation: isolate;
+}
+
+.form-stepper .form-stepper-count{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    /*isolation: isolate;*/
+}
+.form-stepper .form-stepper-count:nth-child(1){z-index: 100;}
+.form-stepper .form-stepper-count:nth-child(2){z-index: 99;}
+.form-stepper .form-stepper-count:nth-child(3){z-index: 98;}
+.form-stepper .form-stepper-count:nth-child(4){z-index: 97;}
+.form-stepper .form-stepper-count:nth-child(5){z-index: 96;}
+.form-stepper .form-stepper-count:nth-child(6){z-index: 95;}
+.form-stepper .form-stepper-count:nth-child(7){z-index: 94;}
+.form-stepper .form-stepper-count:nth-child(8){z-index: 93;}
+.form-stepper .form-stepper-count:nth-child(9){z-index: 92;}
+.form-stepper .form-stepper-count:nth-child(10){z-index: 91;}
+
+
+
+.form-stepper .form-stepper-count:not(:first-child):before{
+    content: '';
+    top: 3.2vw;
+    z-index: -1;
+    height: 1.6vw;
+    right: 50%;
+    width: 100%;
+    position: absolute;
+    background-color: var(--color-grey);
+}
+
+.form-stepper .form-stepper-count:not(:first-child).passed:before{
+    background-color: var(--color-red);
+}
+
+.form-stepper .form-stepper-count.passed .stepper-number{
+    background-color: var(--color-red);
+    color: white;
+    z-index: 1;
+}
+
+
+.form-stepper .stepper-number{
+    background-color: var(--color-grey);
+    color: black;
+    border-radius: 500px;
+    font-weight: bold;
+    display: grid;
+    place-items: center;
+    height: 8vw;
+    width: 8vw;
+    font-size: 3.5vw;
+}
+
+.form-stepper .stepper-text{
+    margin-top: 2vw;
+    max-width: 12vw;
+    font-size: 1.9vw;
+    font-weight: bold;
+    color: var(--color-dark-grey);
+}
+
+
+
+.form-stepper .form-stepper-content{
+    padding: 16px 6vw;
+}
+
+.form-stepper .form-stepper-footer{
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    align-items: flex-start;
+    gap: 16px;
+    justify-content: center;
+    position: relative;
+    isolation: isolate;
+}
+@media only screen and (min-width: 991px) {
+    .form-stepper .stepper-text{
+        font-size: 1.6vw;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+
+}
+@media only screen and (max-width: 400px) {
+    .form-stepper .stepper-text{
+        font-size: 2.4vw;
+    }
+}
+
