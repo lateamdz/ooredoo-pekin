@@ -79,8 +79,6 @@
     color: var(--color-dark-grey);
 }
 
-
-
 .form-stepper .form-stepper-content{
     padding: 16px 6vw;
 }
@@ -95,7 +93,14 @@
     position: relative;
     isolation: isolate;
 }
-.form-stepper .form-control + .invalid-text{
+
+.form-stepper .form-label{
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+    margin-top: 8px;
+}
+
+.form-stepper .form-control + .invalid-text, .form-stepper .form-select + .invalid-text{
     color: var(--color-red);
     font-size: 0.75rem;
     display: none;

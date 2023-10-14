@@ -25,10 +25,9 @@ class FormStepper {
             },
             isValidForm:false,
             form:{
-                // firstName:{
-                //     initial:"Sami",
-                //     validation:(form)=>true,
-                // }
+                default:{
+                    validation:(value,form)=>true,
+                }
             }
         }
     };
@@ -58,7 +57,6 @@ class FormStepper {
         if(this.props[this.currentStep]){
             const formData=this.props[this.currentStep].form||{default:{valid:true}};
             this.props[this.currentStep].isValidForm=Object.entries(formData).every(([key,value])=>value.valid);
-            console.log(Object.entries(formData),this.props[this.currentStep].form);
         }
 
         classToggle(this.nextBtn, {
@@ -85,9 +83,9 @@ class FormStepper {
             });
             this.contentItems[i - 1].setAttribute('data-step-content', i);
 
-            if(i===this.currentStep){
+            // if(i===this.currentStep){
                 this.setInputData(this.contentItems[i - 1],i)
-            }
+            // }
         }
 
         this.nextBtn.onclick = () => {
@@ -113,7 +111,7 @@ class FormStepper {
 
     setInputData(currentItem,step){
         const getValue=(input)=>["checkbox","radio"].includes(input.type)?input.checked:input.type==="file"?input.files[0]:input.value;
-        const childInputs=currentItem.getElementsByTagName("input");
+        const childInputs=[...currentItem.getElementsByTagName("input"),...currentItem.getElementsByTagName("select"),...currentItem.getElementsByTagName("textarea")];
         const inputData={};
         for(let input of childInputs){
             inputData[input.name]=getValue(input);
@@ -126,7 +124,6 @@ class FormStepper {
                 classToggle(input.nextElementSibling, {
                     "d-block": !isValid
                 });
-                // this.props[step].form={...this.props[step].form};
                 this.props[step].form[input.name]={...this.props[step].form[input.name],valid:isValid};
                 this.useEffect();
             };
