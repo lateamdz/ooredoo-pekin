@@ -76,8 +76,9 @@
                             },
                             form:{
                                 firstName:{
-                                    initial:"Sami",
-                                    validation:(form)=>true,
+                                    validation:(value,form)=>{
+                                        return value.length>4;
+                                    },
                                 }
                             }
                         },
@@ -137,6 +138,13 @@
                         <input type="text" class="form-control" name="firstName" placeholder="" value="" required>
                         <div class="invalid-text">
                             Un prénom valide est requis.
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label">Nom</label>
+                        <input type="text" class="form-control" name="lastName" placeholder="" value="" required>
+                        <div class="invalid-text">
+                            Un nom valide est requis.
                         </div>
                     </div>
                 </div>

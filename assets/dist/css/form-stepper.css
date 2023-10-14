@@ -95,6 +95,12 @@
     position: relative;
     isolation: isolate;
 }
+.form-stepper .form-control + .invalid-text{
+    color: var(--color-red);
+    font-size: 0.75rem;
+    display: none;
+}
+
 @media only screen and (min-width: 991px) {
     .form-stepper .stepper-text{
         font-size: 1.6vw;

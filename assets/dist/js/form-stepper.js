@@ -23,6 +23,7 @@ class FormStepper {
             onSubmit: (data) => {
                 console.log(data)
             },
+            isValidForm:false,
             form:{
                 // firstName:{
                 //     initial:"Sami",
@@ -54,6 +55,12 @@ class FormStepper {
     }
 
     useEffect() {
+        if(this.props[this.currentStep]){
+            const formData=this.props[this.currentStep].form||{default:{valid:true}};
+            this.props[this.currentStep].isValidForm=Object.entries(formData).every(([key,value])=>value.valid);
+            console.log(Object.entries(formData),this.props[this.currentStep].form);
+        }
+
         classToggle(this.nextBtn, {
             "d-none": this.currentStep === this.stepCount ? this.props.global.hideNextOnLastStep : this.currentStep >= this.stepCount
         });
@@ -84,10 +91,13 @@ class FormStepper {
         }
 
         this.nextBtn.onclick = () => {
-            if (this.props[this.currentStep] && this.props[this.currentStep].onSubmit) {
+            const formValid= this.props[this.currentStep]?this.props[this.currentStep].isValidForm:true;
+
+            if (this.props[this.currentStep] && this.props[this.currentStep].onSubmit && formValid) {
                 this.props[this.currentStep].onSubmit(this.formData);
             }
-            if (this.currentStep < this.stepCount) {
+
+            if (this.currentStep < this.stepCount && formValid) {
                 this.currentStep++;
             }
             this.useEffect();
@@ -102,10 +112,24 @@ class FormStepper {
     }
 
     setInputData(currentItem,step){
+        const getValue=(input)=>["checkbox","radio"].includes(input.type)?input.checked:input.type==="file"?input.files[0]:input.value;
         const childInputs=currentItem.getElementsByTagName("input");
         const inputData={};
         for(let input of childInputs){
-            inputData[input.name]=["checkbox","radio"].includes(input.type)?input.checked:input.type==="file"?input.files[0]:input.value;
+            inputData[input.name]=getValue(input);
+            input.onchange=(e)=>{
+                let isValid=true;
+                const validation=this.props[step].form[input.name] && this.props[step].form[input.name].validation;
+                if(validation){
+                    isValid=validation(getValue(e.target),inputData);
+                }
+                classToggle(input.nextElementSibling, {
+                    "d-block": !isValid
+                });
+                // this.props[step].form={...this.props[step].form};
+                this.props[step].form[input.name]={...this.props[step].form[input.name],valid:isValid};
+                this.useEffect();
+            };
         }
         this.formData[step]=inputData
     }
