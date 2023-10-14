@@ -76,8 +76,8 @@
                                 console.log(form)
                             },
                             form: {
-                                firstName: {validation:(value,form)=>value.length>3},
-                                lastName:{validation:(value,form)=>value.length>3},
+                                firstName: {validation: (value, form) => value.length > 3},
+                                lastName: {validation: (value, form) => value.length > 3},
                                 // address: {validation:(value,form)=>value.length>4},
                                 // birthday: {validation:(value,form)=>/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(value)},
                                 // email:{validation:(value,form)=>/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value)},
@@ -90,6 +90,9 @@
                         3: {
                             onSubmit: (form) => {
                                 console.log(form)
+                            },
+                            form: {
+                                firstName: {validation: (value, form) => value.length > 3},
                             }
                         },
                         4: {
@@ -154,130 +157,130 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="row">-->
-<!--                        <div class="col-sm-4">-->
-<!--                            <label class="form-label">Date de naissance (jj/mm/aaaa)</label>-->
-<!--                            <input type="date" class="form-control" name="birthday" placeholder="jj/mm/aaaa" value=""-->
-<!--                                   required>-->
-<!--                            <div class="invalid-text">-->
-<!--                                Un Date de naissance valide est requis.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-4">-->
-<!--                            <label class="form-label">Situation Familiale</label>-->
-<!--                            <select class="form-select" name="familySituation" required>-->
-<!--                                <option value="">Choisir...</option>-->
-<!--                                <option value="married">Mariée</option>-->
-<!--                                <option value="single">Célibataire</option>-->
-<!--                            </select>-->
-<!--                            <div class="invalid-text">-->
-<!--                                Un Sexe est requis.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-4">-->
-<!--                            <label class="form-label">Sexe</label>-->
-<!--                            <select class="form-select" name="sexe" required>-->
-<!--                                <option value="">Choisir...</option>-->
-<!--                                <option value="male">Homme</option>-->
-<!--                                <option value="female">Femme</option>-->
-<!--                            </select>-->
-<!--                            <div class="invalid-text">-->
-<!--                                Un Sexe est requis.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-sm-6">-->
-<!--                            <label class="form-label">Adresse E-mail</label>-->
-<!--                            <input type="email" class="form-control" name="email" placeholder="" value="" required>-->
-<!--                            <div class="invalid-text">-->
-<!--                                Un email valide est requis.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-6">-->
-<!--                            <label class="form-label">Téléphone</label>-->
-<!--                            <input type="tel" class="form-control" name="phone" placeholder="" value="" required>-->
-<!--                            <div class="invalid-text">-->
-<!--                                Un téléphone est requis.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-sm-8">-->
-<!--                            <label class="form-label">Adresse</label>-->
-<!--                            <input type="email" class="form-control" name="address" placeholder="" value="" required>-->
-<!--                            <div class="invalid-text">-->
-<!--                                Un adresse valide est requis.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-4">-->
-<!--                            <label class="form-label">Wilaya</label>-->
-<!--                            <select class="form-select" name="wilaya" required>-->
-<!--                                <option value="">Choisir...</option>-->
-<!--                                <option value="1">Adrar</option>-->
-<!--                                <option value="2">Chlef</option>-->
-<!--                                <option value="3">Laghouat</option>-->
-<!--                                <option value="4">Oum El Bouaghi</option>-->
-<!--                                <option value="5">Batna</option>-->
-<!--                                <option value="6">Bejaia</option>-->
-<!--                                <option value="7">Biskra</option>-->
-<!--                                <option value="8">Bechar</option>-->
-<!--                                <option value="9">Blida</option>-->
-<!--                                <option value="10">Bouira</option>-->
-<!--                                <option value="11">Tamanrasset</option>-->
-<!--                                <option value="12">Tebessa</option>-->
-<!--                                <option value="13">Tlemcen</option>-->
-<!--                                <option value="14">Tiaret</option>-->
-<!--                                <option value="15">Tizi Ouzou</option>-->
-<!--                                <option value="16">Alger</option>-->
-<!--                                <option value="17">Djelfa</option>-->
-<!--                                <option value="18">Jijel</option>-->
-<!--                                <option value="19">Setif</option>-->
-<!--                                <option value="20">Saida</option>-->
-<!--                                <option value="21">Skikda</option>-->
-<!--                                <option value="22">Sidi Bel Abbes</option>-->
-<!--                                <option value="23">Annaba</option>-->
-<!--                                <option value="24">Guelma</option>-->
-<!--                                <option value="25">Constantine</option>-->
-<!--                                <option value="26">Medea</option>-->
-<!--                                <option value="27">Mostaganem</option>-->
-<!--                                <option value="28">MSila</option>-->
-<!--                                <option value="29">Mascara</option>-->
-<!--                                <option value="30">Ouargla</option>-->
-<!--                                <option value="31">Oran</option>-->
-<!--                                <option value="32">El Bayadh</option>-->
-<!--                                <option value="33">Illizi</option>-->
-<!--                                <option value="34">Bordj Bou Arreridj</option>-->
-<!--                                <option value="35">Boumerdes</option>-->
-<!--                                <option value="36">El Tarf</option>-->
-<!--                                <option value="37">Tindouf</option>-->
-<!--                                <option value="38">Tissemsilt</option>-->
-<!--                                <option value="39">El Oued</option>-->
-<!--                                <option value="40">Khenchela</option>-->
-<!--                                <option value="41">Souk Ahras</option>-->
-<!--                                <option value="42">Tipaza</option>-->
-<!--                                <option value="43">Mila</option>-->
-<!--                                <option value="44">Ain Defla</option>-->
-<!--                                <option value="45">Naama</option>-->
-<!--                                <option value="46">Ain Temouchent</option>-->
-<!--                                <option value="47">Ghardaia</option>-->
-<!--                                <option value="48">Relizane</option>-->
-<!--                                <option value="49">El M'Ghair</option>-->
-<!--                                <option value="50">El Menia</option>-->
-<!--                                <option value="51">Ouled Djellal</option>-->
-<!--                                <option value="52">Bordj Baji Mokhtar</option>-->
-<!--                                <option value="53">Béni Abbès</option>-->
-<!--                                <option value="54">Timimoun</option>-->
-<!--                                <option value="55">Touggourt</option>-->
-<!--                                <option value="56">Djanet</option>-->
-<!--                                <option value="57">In Salah</option>-->
-<!--                                <option value="58">In Guezzam</option>-->
-<!--                            </select>-->
-<!--                            <div class="invalid-text">-->
-<!--                                Un wilaya valide est requis.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="col-sm-4">-->
+                    <!--                            <label class="form-label">Date de naissance (jj/mm/aaaa)</label>-->
+                    <!--                            <input type="date" class="form-control" name="birthday" placeholder="jj/mm/aaaa" value=""-->
+                    <!--                                   required>-->
+                    <!--                            <div class="invalid-text">-->
+                    <!--                                Un Date de naissance valide est requis.-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col-sm-4">-->
+                    <!--                            <label class="form-label">Situation Familiale</label>-->
+                    <!--                            <select class="form-select" name="familySituation" required>-->
+                    <!--                                <option value="">Choisir...</option>-->
+                    <!--                                <option value="married">Mariée</option>-->
+                    <!--                                <option value="single">Célibataire</option>-->
+                    <!--                            </select>-->
+                    <!--                            <div class="invalid-text">-->
+                    <!--                                Un Sexe est requis.-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col-sm-4">-->
+                    <!--                            <label class="form-label">Sexe</label>-->
+                    <!--                            <select class="form-select" name="sexe" required>-->
+                    <!--                                <option value="">Choisir...</option>-->
+                    <!--                                <option value="male">Homme</option>-->
+                    <!--                                <option value="female">Femme</option>-->
+                    <!--                            </select>-->
+                    <!--                            <div class="invalid-text">-->
+                    <!--                                Un Sexe est requis.-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="col-sm-6">-->
+                    <!--                            <label class="form-label">Adresse E-mail</label>-->
+                    <!--                            <input type="email" class="form-control" name="email" placeholder="" value="" required>-->
+                    <!--                            <div class="invalid-text">-->
+                    <!--                                Un email valide est requis.-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col-sm-6">-->
+                    <!--                            <label class="form-label">Téléphone</label>-->
+                    <!--                            <input type="tel" class="form-control" name="phone" placeholder="" value="" required>-->
+                    <!--                            <div class="invalid-text">-->
+                    <!--                                Un téléphone est requis.-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="col-sm-8">-->
+                    <!--                            <label class="form-label">Adresse</label>-->
+                    <!--                            <input type="email" class="form-control" name="address" placeholder="" value="" required>-->
+                    <!--                            <div class="invalid-text">-->
+                    <!--                                Un adresse valide est requis.-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col-sm-4">-->
+                    <!--                            <label class="form-label">Wilaya</label>-->
+                    <!--                            <select class="form-select" name="wilaya" required>-->
+                    <!--                                <option value="">Choisir...</option>-->
+                    <!--                                <option value="1">Adrar</option>-->
+                    <!--                                <option value="2">Chlef</option>-->
+                    <!--                                <option value="3">Laghouat</option>-->
+                    <!--                                <option value="4">Oum El Bouaghi</option>-->
+                    <!--                                <option value="5">Batna</option>-->
+                    <!--                                <option value="6">Bejaia</option>-->
+                    <!--                                <option value="7">Biskra</option>-->
+                    <!--                                <option value="8">Bechar</option>-->
+                    <!--                                <option value="9">Blida</option>-->
+                    <!--                                <option value="10">Bouira</option>-->
+                    <!--                                <option value="11">Tamanrasset</option>-->
+                    <!--                                <option value="12">Tebessa</option>-->
+                    <!--                                <option value="13">Tlemcen</option>-->
+                    <!--                                <option value="14">Tiaret</option>-->
+                    <!--                                <option value="15">Tizi Ouzou</option>-->
+                    <!--                                <option value="16">Alger</option>-->
+                    <!--                                <option value="17">Djelfa</option>-->
+                    <!--                                <option value="18">Jijel</option>-->
+                    <!--                                <option value="19">Setif</option>-->
+                    <!--                                <option value="20">Saida</option>-->
+                    <!--                                <option value="21">Skikda</option>-->
+                    <!--                                <option value="22">Sidi Bel Abbes</option>-->
+                    <!--                                <option value="23">Annaba</option>-->
+                    <!--                                <option value="24">Guelma</option>-->
+                    <!--                                <option value="25">Constantine</option>-->
+                    <!--                                <option value="26">Medea</option>-->
+                    <!--                                <option value="27">Mostaganem</option>-->
+                    <!--                                <option value="28">MSila</option>-->
+                    <!--                                <option value="29">Mascara</option>-->
+                    <!--                                <option value="30">Ouargla</option>-->
+                    <!--                                <option value="31">Oran</option>-->
+                    <!--                                <option value="32">El Bayadh</option>-->
+                    <!--                                <option value="33">Illizi</option>-->
+                    <!--                                <option value="34">Bordj Bou Arreridj</option>-->
+                    <!--                                <option value="35">Boumerdes</option>-->
+                    <!--                                <option value="36">El Tarf</option>-->
+                    <!--                                <option value="37">Tindouf</option>-->
+                    <!--                                <option value="38">Tissemsilt</option>-->
+                    <!--                                <option value="39">El Oued</option>-->
+                    <!--                                <option value="40">Khenchela</option>-->
+                    <!--                                <option value="41">Souk Ahras</option>-->
+                    <!--                                <option value="42">Tipaza</option>-->
+                    <!--                                <option value="43">Mila</option>-->
+                    <!--                                <option value="44">Ain Defla</option>-->
+                    <!--                                <option value="45">Naama</option>-->
+                    <!--                                <option value="46">Ain Temouchent</option>-->
+                    <!--                                <option value="47">Ghardaia</option>-->
+                    <!--                                <option value="48">Relizane</option>-->
+                    <!--                                <option value="49">El M'Ghair</option>-->
+                    <!--                                <option value="50">El Menia</option>-->
+                    <!--                                <option value="51">Ouled Djellal</option>-->
+                    <!--                                <option value="52">Bordj Baji Mokhtar</option>-->
+                    <!--                                <option value="53">Béni Abbès</option>-->
+                    <!--                                <option value="54">Timimoun</option>-->
+                    <!--                                <option value="55">Touggourt</option>-->
+                    <!--                                <option value="56">Djanet</option>-->
+                    <!--                                <option value="57">In Salah</option>-->
+                    <!--                                <option value="58">In Guezzam</option>-->
+                    <!--                            </select>-->
+                    <!--                            <div class="invalid-text">-->
+                    <!--                                Un wilaya valide est requis.-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                 </div>
                 <div class="form-stepper-content-step"> this is step 2</div>
                 <div class="form-stepper-content-step">

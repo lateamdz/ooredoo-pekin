@@ -39,6 +39,7 @@ class FormStepper {
     currentStep = 1;
 
     formData = {};
+    nextBtnIsClicked=false;
 
     constructor(id, props) {
         this.id = id;
@@ -83,22 +84,26 @@ class FormStepper {
             });
             this.contentItems[i - 1].setAttribute('data-step-content', i);
 
-            // if(i===this.currentStep){
-                this.setInputData(this.contentItems[i - 1],i)
-            // }
+            if(i===this.currentStep){
+                this.setInputData(this.contentItems[i - 1],i);
+                this.nextBtnIsClicked=false;
+            }
         }
 
         this.nextBtn.onclick = () => {
             const formValid= this.props[this.currentStep]?this.props[this.currentStep].isValidForm:true;
-
-            if (this.props[this.currentStep] && this.props[this.currentStep].onSubmit && formValid) {
+            this.nextBtnIsClicked=true;
+            if (this.props[this.currentStep] && this.props[this.currentStep].onSubmit && formValid ) {
+                console.log(this.formData, this.props[this.currentStep]);
                 this.props[this.currentStep].onSubmit(this.formData);
             }
 
             if (this.currentStep < this.stepCount && formValid) {
+                this.nextBtnIsClicked=false;
                 this.currentStep++;
             }
             this.useEffect();
+
         };
 
         this.prevBtn.onclick = () => {
@@ -115,18 +120,26 @@ class FormStepper {
         const inputData={};
         for(let input of childInputs){
             inputData[input.name]=getValue(input);
-            input.onchange=(e)=>{
+            const onchange=(e)=>{
                 let isValid=true;
                 const validation=this.props[step].form[input.name] && this.props[step].form[input.name].validation;
                 if(validation){
                     isValid=validation(getValue(e.target),inputData);
                 }
                 classToggle(input.nextElementSibling, {
-                    "d-block": !isValid
+                    "d-block": !isValid && this.nextBtnIsClicked
                 });
                 this.props[step].form[input.name]={...this.props[step].form[input.name],valid:isValid};
+
+            };
+
+            input.onchange=(e)=>{
+                onchange(e);
                 this.useEffect();
             };
+            // if( ){
+             onchange({target:input});
+            // }
         }
         this.formData[step]=inputData
     }
