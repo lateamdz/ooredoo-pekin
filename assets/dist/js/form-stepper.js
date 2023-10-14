@@ -137,9 +137,7 @@ class FormStepper {
                 onchange(e);
                 this.useEffect();
             };
-            // if( ){
              onchange({target:input});
-            // }
         }
         this.formData[step]=inputData
     }
