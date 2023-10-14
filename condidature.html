@@ -73,12 +73,40 @@
                         1:{
                             onSubmit:(form)=>{
                                 console.log(form)
+                            },
+                            form:{
+                                firstName:{
+                                    initial:"Sami",
+                                    validation:(form)=>true,
+                                }
+                            }
+                        },
+                        3:{
+                            onSubmit:(form)=>{
+                                console.log(form)
                             }
                         },
                         4:{
                             nextText:'Terminé',
                             onSubmit:(data)=>{
                                 console.log(data)
+                                // var fileInput = document.getElementById('fileInput');
+                                // var file = fileInput.files[0];
+                                //
+                                // var formData = new FormData();
+                                // formData.append('file', file);
+                                //
+                                // fetch('/upload', {
+                                //     method: 'POST',
+                                //     body: formData
+                                // })
+                                //     .then(response => response.json()) // Assuming the backend returns JSON response
+                                //     .then(data => {
+                                //         console.log(data); // Handle the JSON response from the backend
+                                //     })
+                                //     .catch(error => {
+                                //         console.error('Error:', error);
+                                //     });
                             }
                         }
                     })
@@ -103,9 +131,25 @@
                 </div>
             </div>
             <div class="form-stepper-content">
-                <div class="form-stepper-content-step"> this is step 1</div>
+                <div class="form-stepper-content-step">
+                    <div class="col-sm-6">
+                        <label class="form-label">Prénom</label>
+                        <input type="text" class="form-control" name="firstName" placeholder="" value="" required>
+                        <div class="invalid-text">
+                            Un prénom valide est requis.
+                        </div>
+                    </div>
+                </div>
                 <div class="form-stepper-content-step"> this is step 2</div>
-                <div class="form-stepper-content-step"> this is step 3</div>
+                <div class="form-stepper-content-step">
+                    <div class="col-sm-6">
+                        <label class="form-label">Prénom</label>
+                        <input type="text" class="form-control" name="firstName" placeholder="" value="" required>
+                        <div class="invalid-text">
+                            Un prénom valide est requis.
+                        </div>
+                    </div>
+                </div>
                 <div class="form-stepper-content-step">
                     <h1>FÉLICITATION !</h1>
                     <p>Votre candidature a bien été retenue, nous vous contacterons bientôt</p>
