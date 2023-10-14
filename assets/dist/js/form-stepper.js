@@ -86,7 +86,6 @@ class FormStepper {
 
             if(i===this.currentStep){
                 this.setInputData(this.contentItems[i - 1],i);
-                this.nextBtnIsClicked=false;
             }
         }
 
@@ -94,7 +93,6 @@ class FormStepper {
             const formValid= this.props[this.currentStep]?this.props[this.currentStep].isValidForm:true;
             this.nextBtnIsClicked=true;
             if (this.props[this.currentStep] && this.props[this.currentStep].onSubmit && formValid ) {
-                console.log(this.formData, this.props[this.currentStep]);
                 this.props[this.currentStep].onSubmit(this.formData);
             }
 
@@ -115,7 +113,17 @@ class FormStepper {
     }
 
     setInputData(currentItem,step){
-        const getValue=(input)=>["checkbox","radio"].includes(input.type)?input.checked:input.type==="file"?input.files[0]:input.value;
+        const getValue=(input)=>{
+            if(input.type==="date"){
+                const date_parts = input.value.split("-");
+                const year = parseInt(date_parts[0]);
+                const month = parseInt(date_parts[1]);
+                const day = parseInt(date_parts[2]);
+                return `${day}/${month}/${year}`
+            }
+            else
+              return ["checkbox","radio"].includes(input.type)?input.checked:input.type==="file"?input.files[0]:input.value
+        };
         const childInputs=[...currentItem.getElementsByTagName("input"),...currentItem.getElementsByTagName("select"),...currentItem.getElementsByTagName("textarea")];
         const inputData={};
         for(let input of childInputs){
