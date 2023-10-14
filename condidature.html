@@ -16,10 +16,10 @@
     <link href="assets/dist/css/main.css" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="assets/dist/js/form-stepper.js"></script>
 
     <link href="assets/dist/css/custom.css" rel="stylesheet">
     <link href="assets/dist/css/form-stepper.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -60,13 +60,36 @@
 
     <div class="form-section">
         <h1 class="text-uppercase fw-bold text-center mt-4 mb-3">CONDIDATURE</h1>
-        <div class="form-stepper">
+        <div class="form-stepper" id="my-form-stepper">
+            <script defer >
+                document.addEventListener('DOMContentLoaded', function() {
+                    const myForm=new FormStepper("my-form-stepper",{
+                        global:{
+                            // hideNextOnLastStep:true,
+                            // hidePrevOnLastStep:true,
+                            defaultNextText:'Suivant',
+                            defaultPrevText:'Precedent',
+                        },
+                        1:{
+                            onSubmit:(form)=>{
+                                console.log(form)
+                            }
+                        },
+                        4:{
+                            nextText:'Terminé',
+                            onSubmit:(data)=>{
+                                console.log(data)
+                            }
+                        }
+                    })
+                });
+            </script>
             <div class="form-stepper-header">
                 <div class="form-stepper-count passed">
                     <span class="stepper-number">1</span>
                     <span class="stepper-text">Information condidat 1</span>
                 </div>
-                <div class="form-stepper-count passed">
+                <div class="form-stepper-count">
                     <span class="stepper-number">2</span>
                     <span class="stepper-text">Information condidat 2</span>
                 </div>
@@ -83,10 +106,11 @@
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur culpa, distinctio ea enim facere laborum minus nam obcaecati!
             </div>
             <div class="form-stepper-footer">
-                <button class="btn btn-secondary btn-round">Precedent</button>
-                <button class="btn btn-primary btn-round">Suivant</button>
+                <button class="btn btn-secondary btn-round" data-role="prev">Precedent</button>
+                <button class="btn btn-primary btn-round" data-role="next">Suivant3</button>
             </div>
         </div>
+
     </div>
 </main>
 
