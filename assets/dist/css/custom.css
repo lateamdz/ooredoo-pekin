@@ -173,22 +173,22 @@ footer .list-inline-item a {
     color: white;
 }
 
-.hero-section .bg-text-img .title-header .red-circle {
-    right: 8%;
-    top: 75%;
-    position: absolute;
-    width: 35%;
-    z-index: -1;
-}
+/*.hero-section .bg-text-img .title-header .red-circle {*/
+/*    right: 8%;*/
+/*    top: 75%;*/
+/*    position: absolute;*/
+/*    width: 35%;*/
+/*    z-index: -1;*/
+/*}*/
 
-.hero-section .bg-text-img .title-header h1 {
-    font-size: 260%;
-}
+/*.hero-section .bg-text-img .title-header h1 {*/
+/*    font-size: 260%;*/
+/*}*/
 
-.hero-section .bg-text-img .title-header {
-    position: relative;
-    isolation: isolate;
-}
+/*.hero-section .bg-text-img .title-header {*/
+/*    position: relative;*/
+/*    isolation: isolate;*/
+/*}*/
 
 .hero-section .bg-links {
     position: absolute;
@@ -254,17 +254,17 @@ footer .list-inline-item a {
         font-size: 75%;
     }
 
-    .hero-section .bg-text-img .title-header .red-circle {
-        right: 5%;
-        top: 32%;
-        position: absolute;
-        width: 20%;
-        z-index: -1;
-    }
+    /*.hero-section .bg-text-img .title-header .red-circle {*/
+    /*    right: 5%;*/
+    /*    top: 32%;*/
+    /*    position: absolute;*/
+    /*    width: 20%;*/
+    /*    z-index: -1;*/
+    /*}*/
 
-    .hero-section .bg-text-img .title-header h1 {
-        font-size: 200%;
-    }
+    /*.hero-section .bg-text-img .title-header h1 {*/
+    /*    font-size: 200%;*/
+    /*}*/
 
 
     .hero-section.as-condidature {
