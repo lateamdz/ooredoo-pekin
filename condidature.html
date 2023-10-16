@@ -64,42 +64,67 @@
         <div class="form-stepper" id="my-form-stepper">
             <script defer>
                 document.addEventListener('DOMContentLoaded', function () {
-                    const form= {
+                    const formConfig = {
                         firstName: {validation: (value, form) => value.length > 3},
                         lastName: {validation: (value, form) => value.length > 3},
-                        address: {validation:(value,form)=>value.length>4},
-                        birthday: {validation:(value,form)=>/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{4})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[048]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{4})$/.test(value)},
-                        email:{validation:(value,form)=>/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value)},
-                        familySituation: {validation:(value,form)=>["married","single"].includes(value)},
-                        phone: {validation:(value,form)=>/^(0)(5|6|7)[0-9]{8}$/.test(value)},
-                        sexe: {validation:(value,form)=>["male","female"].includes(value)},
-                        wilaya: {validation:(value,form)=>Number(value)<=58}
+                        address: {validation: (value, form) => value.length > 4},
+                        birthday: {validation: (value, form) => /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{4})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[048]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{4})$/.test(value)},
+                        email: {validation: (value, form) => /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value)},
+                        familySituation: {validation: (value, form) => value.length > 3},
+                        phone: {validation: (value, form) => /^(0)(5|6|7)[0-9]{8}$/.test(value)},
+                        sexe: {validation: (value, form) => value.length > 3},
+                        wilaya: {validation: (value, form) => Number(value) <= 58 && Number(value) >= 1},
+                        photo: {validation: (value, form) => Boolean(value)},
+                    };
+                    const bindStepData = (step, form) => {
+                        const previewInputs = document.getElementById(`condidat-${step}-preview`);
+                        const elementsWithAttribute = previewInputs.querySelectorAll('[data-replace]');
+                        const previewImage = previewInputs.querySelector('img');
+                        const wilayaSelector = document.querySelector('.form-select[name="wilaya"]');
+
+                        if (form[step].photo) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                previewImage.src = e.target.result;
+                            };
+                            reader.readAsDataURL(form[step].photo);
+                        } else {
+                            previewImage.src = '';
+                        }
+                        elementsWithAttribute.forEach(element => {
+                            const key = element.getAttribute('data-replace');
+                            element.innerHTML = key === "wilaya" ? wilayaSelector.options[Number(form[step][key])].innerText : form[step][key];
+                        });
                     };
                     const myForm = new FormStepper("my-form-stepper", {
                         global: {
                             // hideNextOnLastStep:true,
-                            // hidePrevOnLastStep:true,
+                            hidePrevOnLastStep: true,
                             defaultNextText: 'Suivant',
-                            defaultPrevText: 'Precedent',
+                            defaultPrevText: 'Retour',
                         },
+
                         1: {
                             onSubmit: (form) => {
-                                console.log(form)
+
                             },
-                            form:form
+                            form: formConfig
                         },
-                        2:{
+                        2: {
                             onSubmit: (form) => {
-                                console.log(form)
+                                bindStepData(1, form);
+                                bindStepData(2, form);
                             },
-                            form:form
+                            form: formConfig
                         },
                         3: {
-                            onSubmit: (form) => {
-                                console.log(form)
+                            nextText: 'Confirmer',
+                            onSubmit: (data) => {
+
                             },
                             form: {
-                                firstName: {validation: (value, form) => value.length > 3},
+                                "accept-condition": {validation: (value, form) => Boolean(value)},
+                                "accept-politique": {validation: (value, form) => Boolean(value)},
                             }
                         },
                         4: {
@@ -147,6 +172,7 @@
                 </div>
             </div>
             <div class="form-stepper-content">
+
                 <div class="form-stepper-content-step">
                     <div class="row">
                         <div class="col-sm-6">
@@ -177,8 +203,8 @@
                             <label class="form-label">Situation Familiale</label>
                             <select class="form-select" name="familySituation" required>
                                 <option value="">Choisir...</option>
-                                <option value="married">Mariée</option>
-                                <option value="single">Célibataire</option>
+                                <option value="Mariée">Mariée</option>
+                                <option value="Célibataire">Célibataire</option>
                             </select>
                             <div class="invalid-text">
                                 Un Sexe est requis.
@@ -188,8 +214,8 @@
                             <label class="form-label">Sexe</label>
                             <select class="form-select" name="sexe" required>
                                 <option value="">Choisir...</option>
-                                <option value="male">Homme</option>
-                                <option value="female">Femme</option>
+                                <option value="Homme">Homme</option>
+                                <option value="Femme">Femme</option>
                             </select>
                             <div class="invalid-text">
                                 Un Sexe est requis.
@@ -288,6 +314,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <label class="form-label">Photo d'identité</label>
+                            <input type="file" accept="image/*" class="form-control" name="photo" placeholder=""
+                                   value="" required>
+                            <div class="invalid-text">
+                                Un Photo d'identité valide est requis.
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-stepper-content-step">
                     <div class="row">
@@ -319,8 +355,8 @@
                             <label class="form-label">Situation Familiale</label>
                             <select class="form-select" name="familySituation" required>
                                 <option value="">Choisir...</option>
-                                <option value="married">Mariée</option>
-                                <option value="single">Célibataire</option>
+                                <option value="Mariée">Mariée</option>
+                                <option value="Célibataire">Célibataire</option>
                             </select>
                             <div class="invalid-text">
                                 Un Sexe est requis.
@@ -330,8 +366,8 @@
                             <label class="form-label">Sexe</label>
                             <select class="form-select" name="sexe" required>
                                 <option value="">Choisir...</option>
-                                <option value="male">Homme</option>
-                                <option value="female">Femme</option>
+                                <option value="Homme">Homme</option>
+                                <option value="Femme">Femme</option>
                             </select>
                             <div class="invalid-text">
                                 Un Sexe est requis.
@@ -430,24 +466,82 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-stepper-content-step">
-                    <div class="col-sm-6">
-                        <label class="form-label">Prénom</label>
-                        <input type="text" class="form-control" name="firstName" placeholder="" value="" required>
-                        <div class="invalid-text">
-                            Un prénom valide est requis.
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <label class="form-label">Photo d'identité</label>
+                            <input type="file" accept="image/*" class="form-control" name="photo" placeholder=""
+                                   value="" required>
+                            <div class="invalid-text">
+                                Un Photo d'identité valide est requis.
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-stepper-content-step">
-                    <h1>FÉLICITATION !</h1>
-                    <p>Votre candidature a bien été retenue, nous vous contacterons bientôt</p>
+                    <div class="row">
+                        <div class="col-sm-6 condidat-img" id="condidat-1-preview">
+                            <h5>
+                                <span data-replace="lastName"></span> <span data-replace="firstName"></span>
+                            </h5>
+                            <h6>Condidat 1</h6>
+                            <img src="" alt="condidat" class="mb-3">
+                            <div data-replace="birthday"></div>
+                            <div data-replace="familySituation"></div>
+                            <div data-replace="sexe"></div>
+                            <div data-replace="email"></div>
+                            <div data-replace="phone"></div>
+                            <div><span data-replace="address"></span> - <span data-replace="wilaya"></span></div>
+                        </div>
+                        <div class="col-sm-6 condidat-img" id="condidat-2-preview">
+                            <h5>
+                                <span data-replace="lastName"></span> <span data-replace="firstName"></span>
+                            </h5>
+                            <h6>Condidat 2</h6>
+                            <img src="" alt="condidat" class="mb-3">
+                            <div data-replace="birthday"></div>
+                            <div data-replace="familySituation"></div>
+                            <div data-replace="sexe"></div>
+                            <div data-replace="email"></div>
+                            <div data-replace="phone"></div>
+                            <div><span data-replace="address"></span> - <span data-replace="wilaya"></span></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 mt-2">
+                            <div class="form-check">
+                                <label class="form-check-label" for="accept-condition">J’accepte <a
+                                        href="./assets/docs/Termes_et_Conditions.pdf" target="_blank">les conditions
+                                    générales d'utilisation</a></label>
+                                <input id="accept-condition" name="accept-condition" type="checkbox"
+                                       class="form-check-input" required>
+                                <div class="invalid-text">
+                                    veuillez accepter et cocher la case pour continuer
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label" for="accept-politique">J’accepte <a
+                                        href="./assets/docs/Politique_de_Confidentialité.pdf" target="_blank">la
+                                    politique de confidentialité</a></label>
+                                <input id="accept-politique" name="accept-politique" type="checkbox"
+                                       class="form-check-input" required>
+                                <div class="invalid-text">
+                                    veuillez accepter et cocher la case pour continuer
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-stepper-content-step">
+                    <div class="d-center flex-column my-4">
+                        <h1 class="text-center">FÉLICITATION !</h1>
+                        <p class="text-center">Votre candidature a bien été retenue, nous vous contacterons bientôt</p>
+                    </div>
+
                 </div>
             </div>
             <div class="form-stepper-footer">
-                <button class="btn btn-secondary btn-round" data-role="prev">Precedent</button>
-                <button class="btn btn-primary btn-round" data-role="next">Suivant3</button>
+                <button class="btn btn-secondary btn-round text-uppercase" data-role="prev">Retour</button>
+                <button class="btn btn-primary btn-round text-uppercase" data-role="next">Suivant3</button>
             </div>
         </div>
 

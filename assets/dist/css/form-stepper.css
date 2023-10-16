@@ -100,7 +100,7 @@
     margin-top: 8px;
 }
 
-.form-stepper .form-control + .invalid-text, .form-stepper .form-select + .invalid-text{
+.form-stepper .form-control + .invalid-text, .form-stepper .form-select + .invalid-text ,.form-stepper  .form-check > .invalid-text {
     color: var(--color-red);
     font-size: 0.75rem;
     display: none;
