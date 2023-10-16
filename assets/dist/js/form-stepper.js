@@ -16,6 +16,7 @@ class FormStepper {
             hidePrevOnLastStep: false,
             defaultNextText: 'Suivant',
             defaultPrevText: 'Precedent',
+            onStepChange:(step)=>{}
         },
         1: {
             prevText: 'Precedent',
@@ -55,6 +56,7 @@ class FormStepper {
     }
 
     useEffect() {
+        this.props.global.onStepChange && this.props.global.onStepChange(this.currentStep);
         if(this.props[this.currentStep]){
             const formData=this.props[this.currentStep].form||{default:{valid:true}};
             this.props[this.currentStep].isValidForm=Object.entries(formData).every(([key,value])=>value.valid);

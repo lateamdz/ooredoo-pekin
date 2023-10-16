@@ -51,16 +51,16 @@
     <!-- Hero  -->
     <div class="hero-section as-condidature">
         <div class="header-bg">
-            <img src="https://hagadone.media.clients.ellingtoncms.com/img/photos/2023/08/07/received_1027389674739722_t1170.jpeg?5cc718665ab672dba93d511ab4c682bb370e5f86"
-                 alt="" style="filter: blur(8px); transform:scale(1.1)">
+            <img src="./assets/brand/5.png" alt="">
         </div>
         <div class="bg-logo">
             <img class="img-contain" src="assets/brand/LOGO_PEKINEXPRESS_DZ.png" alt="">
+            <h1 class="text-uppercase text-white text-center" style="font-size: 5vw"><b>CONDIDATURE</b></h1>
         </div>
     </div>
 
     <div class="form-section">
-        <h1 class="text-uppercase fw-bold text-center mt-4 mb-3">CONDIDATURE</h1>
+        <h1 class="text-uppercase fw-bold text-center mt-4 mb-3 text-uppercase" id="title-step">CONDIDATURE</h1>
         <div class="form-stepper" id="my-form-stepper">
             <script defer>
                 document.addEventListener('DOMContentLoaded', function () {
@@ -102,6 +102,16 @@
                             hidePrevOnLastStep: true,
                             defaultNextText: 'Suivant',
                             defaultPrevText: 'Retour',
+                            onStepChange:(step)=>{
+                                const titles={
+                                    1:"Information condidat 1",
+                                    2:"Information condidat 2",
+                                    3:"Récapitulatif",
+                                    4:"Finalisation",
+                                };
+                               const title= document.getElementById("title-step");
+                                title.innerText=titles[step];
+                            }
                         },
 
                         1: {
@@ -114,13 +124,14 @@
                             onSubmit: (form) => {
                                 bindStepData(1, form);
                                 bindStepData(2, form);
+                                document.getElementById("title-step").innerText="Récapitulatif"
                             },
                             form: formConfig
                         },
                         3: {
                             nextText: 'Confirmer',
                             onSubmit: (data) => {
-
+                                document.getElementById("title-step").innerText="Finalisation"
                             },
                             form: {
                                 "accept-condition": {validation: (value, form) => Boolean(value)},
@@ -178,14 +189,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="form-label">Prénom</label>
-                            <input type="text" class="form-control" name="firstName" placeholder="" value="" required>
+                            <input type="text" class="form-control" name="firstName" placeholder="exemple" value="" required>
                             <div class="invalid-text">
                                 Un prénom valide est requis.
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label">Nom</label>
-                            <input type="text" class="form-control" name="lastName" placeholder="" value="" required>
+                            <input type="text" class="form-control" name="lastName" placeholder="exemple" value="" required>
                             <div class="invalid-text">
                                 Un nom valide est requis.
                             </div>
@@ -203,7 +214,7 @@
                         <div class="col-sm-4">
                             <label class="form-label">Situation Familiale</label>
                             <select class="form-select" name="familySituation" required>
-                                <option value="">Choisir...</option>
+                                <option value="">choisissez votre situation</option>
                                 <option value="Mariée">Mariée</option>
                                 <option value="Célibataire">Célibataire</option>
                             </select>
@@ -214,7 +225,7 @@
                         <div class="col-sm-4">
                             <label class="form-label">Sexe</label>
                             <select class="form-select" name="sexe" required>
-                                <option value="">Choisir...</option>
+                                <option value="">choisissez votre sexe</option>
                                 <option value="Homme">Homme</option>
                                 <option value="Femme">Femme</option>
                             </select>
@@ -226,14 +237,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="form-label">Adresse E-mail</label>
-                            <input type="email" class="form-control" name="email" placeholder="" value="" required>
+                            <input type="email" class="form-control" name="email" placeholder="exemple@mail.com" value="" required>
                             <div class="invalid-text">
                                 Un email valide est requis.
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label">Téléphone</label>
-                            <input type="tel" class="form-control" name="phone" placeholder="" value="" required>
+                            <input type="tel" class="form-control" name="phone" placeholder="0555 XX XX XX" value="" required>
                             <div class="invalid-text">
                                 Un téléphone est requis.
                             </div>
@@ -242,7 +253,7 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <label class="form-label">Adresse</label>
-                            <input type="email" class="form-control" name="address" placeholder="" value="" required>
+                            <input type="email" class="form-control" name="address" placeholder="XX rue exemple, Alger, Algérie" value="" required>
                             <div class="invalid-text">
                                 Un adresse valide est requis.
                             </div>
@@ -250,7 +261,7 @@
                         <div class="col-sm-4">
                             <label class="form-label">Wilaya</label>
                             <select class="form-select" name="wilaya" required>
-                                <option value="">Choisir...</option>
+                                <option value="">Choisissez votre wilaya</option>
                                 <option value="1">Adrar</option>
                                 <option value="2">Chlef</option>
                                 <option value="3">Laghouat</option>
@@ -316,9 +327,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                             <label class="form-label">Photo d'identité</label>
-                            <input type="file" accept="image/*" class="form-control" name="photo" placeholder=""
+                            <input type="file" accept="image/*" class="form-control" name="photo" placeholder="insérer"
                                    value="" required>
                             <div class="invalid-text">
                                 Un Photo d'identité valide est requis.
@@ -330,14 +341,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="form-label">Prénom</label>
-                            <input type="text" class="form-control" name="firstName" placeholder="" value="" required>
+                            <input type="text" class="form-control" name="firstName" placeholder="exemple" value="" required>
                             <div class="invalid-text">
                                 Un prénom valide est requis.
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label">Nom</label>
-                            <input type="text" class="form-control" name="lastName" placeholder="" value="" required>
+                            <input type="text" class="form-control" name="lastName" placeholder="exemple" value="" required>
                             <div class="invalid-text">
                                 Un nom valide est requis.
                             </div>
@@ -355,7 +366,7 @@
                         <div class="col-sm-4">
                             <label class="form-label">Situation Familiale</label>
                             <select class="form-select" name="familySituation" required>
-                                <option value="">Choisir...</option>
+                                <option value="">choisissez votre situation</option>
                                 <option value="Mariée">Mariée</option>
                                 <option value="Célibataire">Célibataire</option>
                             </select>
@@ -366,7 +377,7 @@
                         <div class="col-sm-4">
                             <label class="form-label">Sexe</label>
                             <select class="form-select" name="sexe" required>
-                                <option value="">Choisir...</option>
+                                <option value="">choisissez votre sexe</option>
                                 <option value="Homme">Homme</option>
                                 <option value="Femme">Femme</option>
                             </select>
@@ -378,14 +389,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="form-label">Adresse E-mail</label>
-                            <input type="email" class="form-control" name="email" placeholder="" value="" required>
+                            <input type="email" class="form-control" name="email" placeholder="exemple@mail.com" value="" required>
                             <div class="invalid-text">
                                 Un email valide est requis.
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label">Téléphone</label>
-                            <input type="tel" class="form-control" name="phone" placeholder="" value="" required>
+                            <input type="tel" class="form-control" name="phone" placeholder="0555 XX XX XX" value="" required>
                             <div class="invalid-text">
                                 Un téléphone est requis.
                             </div>
@@ -394,7 +405,7 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <label class="form-label">Adresse</label>
-                            <input type="email" class="form-control" name="address" placeholder="" value="" required>
+                            <input type="email" class="form-control" name="address" placeholder="XX rue exemple, Alger, Algérie" value="" required>
                             <div class="invalid-text">
                                 Un adresse valide est requis.
                             </div>
@@ -402,7 +413,7 @@
                         <div class="col-sm-4">
                             <label class="form-label">Wilaya</label>
                             <select class="form-select" name="wilaya" required>
-                                <option value="">Choisir...</option>
+                                <option value="">Choisissez votre wilaya</option>
                                 <option value="1">Adrar</option>
                                 <option value="2">Chlef</option>
                                 <option value="3">Laghouat</option>
@@ -468,9 +479,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                             <label class="form-label">Photo d'identité</label>
-                            <input type="file" accept="image/*" class="form-control" name="photo" placeholder=""
+                            <input type="file" accept="image/*" class="form-control" name="photo" placeholder="insérer"
                                    value="" required>
                             <div class="invalid-text">
                                 Un Photo d'identité valide est requis.
@@ -481,10 +492,10 @@
                 <div class="form-stepper-content-step">
                     <div class="row">
                         <div class="col-sm-6 condidat-img" id="condidat-1-preview">
+                            <h2 class="text-center mb-3">Condidat 1</h2>
                             <h5>
                                 <span data-replace="lastName"></span> <span data-replace="firstName"></span>
                             </h5>
-                            <h6>Condidat 1</h6>
                             <img src="" alt="condidat" class="mb-3">
                             <div data-replace="birthday"></div>
                             <div data-replace="familySituation"></div>
@@ -494,10 +505,10 @@
                             <div><span data-replace="address"></span> - <span data-replace="wilaya"></span></div>
                         </div>
                         <div class="col-sm-6 condidat-img" id="condidat-2-preview">
+                            <h2 class="text-center mb-3">Condidat 2</h2>
                             <h5>
                                 <span data-replace="lastName"></span> <span data-replace="firstName"></span>
                             </h5>
-                            <h6>Condidat 2</h6>
                             <img src="" alt="condidat" class="mb-3">
                             <div data-replace="birthday"></div>
                             <div data-replace="familySituation"></div>
@@ -535,7 +546,7 @@
                 <div class="form-stepper-content-step">
                     <div class="d-center flex-column my-4">
                         <h1 class="text-center">FÉLICITATION !</h1>
-                        <p class="text-center">Votre candidature a bien été retenue, nous vous contacterons bientôt</p>
+                        <p class="text-center text-uppercase fs-3">Votre candidature a bien été retenue, nousvous contacterons bientôt</p>
                     </div>
 
                 </div>
