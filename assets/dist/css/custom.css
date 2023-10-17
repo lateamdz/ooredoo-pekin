@@ -341,8 +341,11 @@ style
     position: relative;
 }
 
+.pekin-dz-section p {
+    text-align: justify !important;
+}
 .pekin-dz-section h1 {
-    font-size: 240%;
+    font-size: 300%;
 }
 
 @media only screen and (max-width: 992px) {
@@ -367,7 +370,7 @@ style
 }
 
 @media only screen and (max-width: 400px) {
-    /*.pekin-dz-section h1{*/
-    /*    font-size: 70%;*/
-    /*}*/
+    .pekin-dz-section h1 {
+        font-size: 240%;
+    }
 }
