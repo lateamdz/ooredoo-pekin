@@ -48,6 +48,10 @@
     background-color: var(--color-grey);
 }
 
+.ar .form-stepper .form-stepper-count:not(:first-child):before{
+    right: auto;
+    left: 50%;
+}
 .form-stepper .form-stepper-count:not(:first-child).passed:before{
     background-color: var(--color-red);
 }

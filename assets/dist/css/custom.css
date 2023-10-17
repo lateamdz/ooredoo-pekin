@@ -317,11 +317,11 @@ footer .list-inline-item a {
     }
 
 
-    .hero-section.as-condidature {
+    .hero-section.as-condidature ,.ar .hero-section.as-condidature{
         height: 60vh;
     }
 
-    .hero-section.as-condidature .bg-logo {
+    .hero-section.as-condidature .bg-logo,.ar .hero-section.as-condidature .bg-logo {
         width: 100%;
         height: 35%;
         /*left: 0;*/
@@ -354,6 +354,10 @@ footer .list-inline-item a {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     padding-top: 20px;
 }
+.ar .form-section {
+    left: auto;
+    right: 10%;
+}
 
 .form-section .condidat-img {
     padding: 16px;
@@ -379,9 +383,6 @@ footer .list-inline-item a {
 
 }
 
-style
-    /*=*/
-    /*"font-size: 354%;"*/
 .pekin-dz-section .row {
     max-width: 1300px;
 }
