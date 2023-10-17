@@ -76,9 +76,9 @@
                         address: {validation: (value, form) => value.length > 4},
                         birthday: {validation: (value, form) => /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{4})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[048]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{4})$/.test(value)},
                         email: {validation: (value, form) => /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value)},
-                        familySituation: {validation: (value, form) => value.length > 3},
                         phone: {validation: (value, form) => /^(0)(5|6|7)[0-9]{8}$/.test(value)},
-                        sexe: {validation: (value, form) => value.length > 3},
+                        familySituation:{validation: (value, form) =>  Number(value) <= 2 && Number(value) >= 1},
+                        sexe: {validation: (value, form) =>  Number(value) <= 2 && Number(value) >= 1},
                         wilaya: {validation: (value, form) => Number(value) <= 58 && Number(value) >= 1},
                         photo: {validation: (value, form) => Boolean(value)},
                     };
@@ -86,7 +86,11 @@
                         const previewInputs = document.getElementById(`condidat-${step}-preview`);
                         const elementsWithAttribute = previewInputs.querySelectorAll('[data-replace]');
                         const previewImage = previewInputs.querySelector('img');
-                        const wilayaSelector = document.querySelector('.form-select[name="wilaya"]');
+                        const selectors={
+                            wilaya:document.querySelector('.form-select[name="wilaya"]'),
+                            familySituation: document.querySelector('.form-select[name="familySituation"]'),
+                            sexe:document.querySelector('.form-select[name="sexe"]'),
+                        };
 
                         if (form[step].photo) {
                             const reader = new FileReader();
@@ -97,23 +101,24 @@
                         } else {
                             previewImage.src = '';
                         }
+
                         elementsWithAttribute.forEach(element => {
                             const key = element.getAttribute('data-replace');
-                            element.innerHTML = key === "wilaya" ? wilayaSelector.options[Number(form[step][key])].innerText : form[step][key];
+                            element.innerHTML = ["wilaya","sexe","familySituation" ].includes(key) ? selectors[key].options[Number(form[step][key])].innerText : form[step][key];
                         });
                     };
                     const myForm = new FormStepper("my-form-stepper", {
                         global: {
                             // hideNextOnLastStep:true,
                             hidePrevOnLastStep: true,
-                            defaultNextText: 'Suivant',
-                            defaultPrevText: 'Retour',
+                            defaultNextText: 'التالي',
+                            defaultPrevText: 'السابق',
                             onStepChange:(step)=>{
                                 const titles={
-                                    1:"Information condidat 1",
-                                    2:"Information condidat 2",
-                                    3:"Récapitulatif",
-                                    4:"Finalisation",
+                                    1:"معلومات خاصة بالمرشح 1",
+                                    2:"معلومات خاصة بالمرشح 2",
+                                    3:"الملخص",
+                                    4:"الانهاء",
                                 };
                                const title= document.getElementById("title-step");
                                 title.innerText=titles[step];
@@ -135,7 +140,7 @@
                             form: formConfig
                         },
                         3: {
-                            nextText: 'Confirmer',
+                            nextText: 'تأكيد',
                             onSubmit: (data) => {
                                 document.getElementById("title-step").innerText="Finalisation"
                             },
@@ -145,7 +150,7 @@
                             }
                         },
                         4: {
-                            nextText: 'Terminé',
+                            nextText: 'إنهاء',
                             onSubmit: (data) => {
                                 console.log(data)
                                 window.location.href = './index.html';
@@ -174,19 +179,19 @@
             <div class="form-stepper-header">
                 <div class="form-stepper-count passed">
                     <span class="stepper-number">1</span>
-                    <span class="stepper-text">Information condidat 1</span>
+                    <span class="stepper-text">معلومات خاصة بالمرشح 1</span>
                 </div>
                 <div class="form-stepper-count">
                     <span class="stepper-number">2</span>
-                    <span class="stepper-text">Information condidat 2</span>
+                    <span class="stepper-text">معلومات خاصة بالمرشح 2</span>
                 </div>
                 <div class="form-stepper-count">
                     <span class="stepper-number">3</span>
-                    <span class="stepper-text">Récapitulatif</span>
+                    <span class="stepper-text">الملخص</span>
                 </div>
                 <div class="form-stepper-count">
                     <span class="stepper-number">4</span>
-                    <span class="stepper-text">Finalisation</span>
+                    <span class="stepper-text">الانهاء</span>
                 </div>
             </div>
             <div class="form-stepper-content">
@@ -194,151 +199,151 @@
                 <div class="form-stepper-content-step">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="form-label">Prénom</label>
-                            <input type="text" class="form-control" name="firstName" placeholder="exemple" value="" required>
+                            <label class="form-label">الاسم</label>
+                            <input type="text" class="form-control" name="firstName" placeholder="مثال" value="" required>
                             <div class="invalid-text">
-                                Un prénom valide est requis.
+                                يرجى ادخال الاسم.
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">Nom</label>
-                            <input type="text" class="form-control" name="lastName" placeholder="exemple" value="" required>
+                            <label class="form-label">اللقب</label>
+                            <input type="text" class="form-control" name="lastName" placeholder="مثال" value="" required>
                             <div class="invalid-text">
-                                Un nom valide est requis.
+                                يرجى ادخال اللقب.
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <label class="form-label">Date de naissance </label>
+                            <label class="form-label">تاريخ الميلاد</label>
                             <input type="date" class="form-control" name="birthday" placeholder="jj/mm/aaaa" value=""
                                    required>
                             <div class="invalid-text">
-                                Un Date de naissance valide est requis.
+                                يرجى ادخال تاريخ الميلاد.
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label class="form-label">Situation Familiale</label>
+                            <label class="form-label">الحالة العائلية</label>
                             <select class="form-select" name="familySituation" required>
-                                <option value="">choisissez votre situation</option>
-                                <option value="Mariée">Mariée</option>
-                                <option value="Célibataire">Célibataire</option>
+                                <option value="">اختيار...</option>
+                                <option value="1">متزوج</option>
+                                <option value="2">اعزب</option>
                             </select>
                             <div class="invalid-text">
-                                Un Sexe est requis.
+                                يرجى اختيار الحالة العائلية.
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label class="form-label">Sexe</label>
+                            <label class="form-label">الجنس</label>
                             <select class="form-select" name="sexe" required>
-                                <option value="">choisissez votre sexe</option>
-                                <option value="Homme">Homme</option>
-                                <option value="Femme">Femme</option>
+                                <option value="">اختيار...</option>
+                                <option value="1">ذكر</option>
+                                <option value="2">انثى</option>
                             </select>
                             <div class="invalid-text">
-                                Un Sexe est requis.
+                                يرجى اختيار الجنس.
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="form-label">Adresse E-mail</label>
+                            <label class="form-label">البريد الإلكتروني</label>
                             <input type="email" class="form-control" name="email" placeholder="exemple@mail.com" value="" required>
                             <div class="invalid-text">
-                                Un email valide est requis.
+                                يرجى ادخال البريد الإلكتروني.
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">Téléphone</label>
-                            <input type="tel" class="form-control" name="phone" placeholder="0555 XX XX XX" value="" required>
+                            <label class="form-label">الهاتف</label>
+                            <input type="tel" class="form-control" name="phone" placeholder="مثال :  55 55 55 0555 " value="" required>
                             <div class="invalid-text">
-                                Un téléphone est requis.
+                                يرجى ادخال الهاتف.
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-8">
-                            <label class="form-label">Adresse</label>
+                            <label class="form-label">العنوان</label>
                             <input type="email" class="form-control" name="address" placeholder="XX rue exemple, Alger, Algérie" value="" required>
                             <div class="invalid-text">
-                                Un adresse valide est requis.
+                                يرجى ادخال العنوان.
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label class="form-label">Wilaya</label>
+                            <label class="form-label">الولاية</label>
                             <select class="form-select" name="wilaya" required>
-                                <option value="">Choisissez votre wilaya</option>
-                                <option value="1">Adrar</option>
-                                <option value="2">Chlef</option>
-                                <option value="3">Laghouat</option>
-                                <option value="4">Oum El Bouaghi</option>
-                                <option value="5">Batna</option>
-                                <option value="6">Bejaia</option>
-                                <option value="7">Biskra</option>
-                                <option value="8">Bechar</option>
-                                <option value="9">Blida</option>
-                                <option value="10">Bouira</option>
-                                <option value="11">Tamanrasset</option>
-                                <option value="12">Tebessa</option>
-                                <option value="13">Tlemcen</option>
-                                <option value="14">Tiaret</option>
-                                <option value="15">Tizi Ouzou</option>
-                                <option value="16">Alger</option>
-                                <option value="17">Djelfa</option>
-                                <option value="18">Jijel</option>
-                                <option value="19">Setif</option>
-                                <option value="20">Saida</option>
-                                <option value="21">Skikda</option>
-                                <option value="22">Sidi Bel Abbes</option>
-                                <option value="23">Annaba</option>
-                                <option value="24">Guelma</option>
-                                <option value="25">Constantine</option>
-                                <option value="26">Medea</option>
-                                <option value="27">Mostaganem</option>
-                                <option value="28">MSila</option>
-                                <option value="29">Mascara</option>
-                                <option value="30">Ouargla</option>
-                                <option value="31">Oran</option>
-                                <option value="32">El Bayadh</option>
-                                <option value="33">Illizi</option>
-                                <option value="34">Bordj Bou Arreridj</option>
-                                <option value="35">Boumerdes</option>
-                                <option value="36">El Tarf</option>
-                                <option value="37">Tindouf</option>
-                                <option value="38">Tissemsilt</option>
-                                <option value="39">El Oued</option>
-                                <option value="40">Khenchela</option>
-                                <option value="41">Souk Ahras</option>
-                                <option value="42">Tipaza</option>
-                                <option value="43">Mila</option>
-                                <option value="44">Ain Defla</option>
-                                <option value="45">Naama</option>
-                                <option value="46">Ain Temouchent</option>
-                                <option value="47">Ghardaia</option>
-                                <option value="48">Relizane</option>
-                                <option value="49">El M'Ghair</option>
-                                <option value="50">El Menia</option>
-                                <option value="51">Ouled Djellal</option>
-                                <option value="52">Bordj Baji Mokhtar</option>
-                                <option value="53">Béni Abbès</option>
-                                <option value="54">Timimoun</option>
-                                <option value="55">Touggourt</option>
-                                <option value="56">Djanet</option>
-                                <option value="57">In Salah</option>
-                                <option value="58">In Guezzam</option>
+                                <option value="">اختيار...</option>
+                                <option value="1">أدرار</option>
+                                <option value="2">الشلف</option>
+                                <option value="3">الأغواط</option>
+                                <option value="4">أم البواقي</option>
+                                <option value="5">باتنة</option>
+                                <option value="6">بجاية</option>
+                                <option value="7">بسكرة</option>
+                                <option value="8">بشار</option>
+                                <option value="9">البليدة</option>
+                                <option value="10">البويرة</option>
+                                <option value="11">تمنراست</option>
+                                <option value="12">تبسة</option>
+                                <option value="13">تلمسان</option>
+                                <option value="14">تيارت</option>
+                                <option value="15">تيزي وزو</option>
+                                <option value="16">الجزائر</option>
+                                <option value="17">الجلفة</option>
+                                <option value="18">جيجل</option>
+                                <option value="19">سطيف</option>
+                                <option value="20">سعيدة</option>
+                                <option value="21">سكيكدة</option>
+                                <option value="22">سيدي بلعباس</option>
+                                <option value="23">عنابة</option>
+                                <option value="24">قالمة</option>
+                                <option value="25">قسنطينة</option>
+                                <option value="26">المدية</option>
+                                <option value="27">مستغانم</option>
+                                <option value="28">المسيلة</option>
+                                <option value="29">معسكر</option>
+                                <option value="30">ورقلة</option>
+                                <option value="31">وهران</option>
+                                <option value="32">البيض</option>
+                                <option value="33">اليزي</option>
+                                <option value="34">برج بوعريريج</option>
+                                <option value="35">بومرداس</option>
+                                <option value="36">الطارف</option>
+                                <option value="37">تندوف</option>
+                                <option value="38">تسمسيلت</option>
+                                <option value="39">الوادي</option>
+                                <option value="40">خنشلة</option>
+                                <option value="41">سوق أهراس</option>
+                                <option value="42">تيبازة</option>
+                                <option value="43">ميلة</option>
+                                <option value="44">عين الدفلىa</option>
+                                <option value="45">النعامة</option>
+                                <option value="46">عين تموشنت</option>
+                                <option value="47">غرداية</option>
+                                <option value="48">غليزان</option>
+                                <option value="49">المغير</option>
+                                <option value="50">المنيعة</option>
+                                <option value="51">أولاد جلال</option>
+                                <option value="52">برج باجي مختار</option>
+                                <option value="53">بني عباس</option>
+                                <option value="54">تيميمون</option>
+                                <option value="55">تقرت</option>
+                                <option value="56">جانت</option>
+                                <option value="57">عين صالح	</option>
+                                <option value="58">عين قزّام	</option>
                             </select>
                             <div class="invalid-text">
-                                Un wilaya valide est requis.
+                                يرجى اختيار الولاية
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="form-label">Photo d'identité</label>
+                            <label class="form-label">صورة شخصية</label>
                             <input type="file" accept="image/*" class="form-control" name="photo" placeholder="insérer"
                                    value="" required>
                             <div class="invalid-text">
-                                Un Photo d'identité valide est requis.
+                                يرجى ادخال الصورة شخصية.
                             </div>
                         </div>
                     </div>
@@ -346,151 +351,151 @@
                 <div class="form-stepper-content-step">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="form-label">Prénom</label>
-                            <input type="text" class="form-control" name="firstName" placeholder="exemple" value="" required>
+                            <label class="form-label">الاسم</label>
+                            <input type="text" class="form-control" name="firstName" placeholder="مثال" value="" required>
                             <div class="invalid-text">
-                                Un prénom valide est requis.
+                                يرجى ادخال الاسم.
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">Nom</label>
-                            <input type="text" class="form-control" name="lastName" placeholder="exemple" value="" required>
+                            <label class="form-label">اللقب</label>
+                            <input type="text" class="form-control" name="lastName" placeholder="مثال" value="" required>
                             <div class="invalid-text">
-                                Un nom valide est requis.
+                                يرجى ادخال اللقب.
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <label class="form-label">Date de naissance </label>
+                            <label class="form-label">تاريخ الميلاد</label>
                             <input type="date" class="form-control" name="birthday" placeholder="jj/mm/aaaa" value=""
                                    required>
                             <div class="invalid-text">
-                                Un Date de naissance valide est requis.
+                                يرجى ادخال تاريخ الميلاد.
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label class="form-label">Situation Familiale</label>
+                            <label class="form-label">الحالة العائلية</label>
                             <select class="form-select" name="familySituation" required>
-                                <option value="">choisissez votre situation</option>
-                                <option value="Mariée">Mariée</option>
-                                <option value="Célibataire">Célibataire</option>
+                                <option value="">اختيار...</option>
+                                <option value="1">متزوج</option>
+                                <option value="2">اعزب</option>
                             </select>
                             <div class="invalid-text">
-                                Un Sexe est requis.
+                                يرجى اختيار الحالة العائلية.
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label class="form-label">Sexe</label>
+                            <label class="form-label">الجنس</label>
                             <select class="form-select" name="sexe" required>
-                                <option value="">choisissez votre sexe</option>
-                                <option value="Homme">Homme</option>
-                                <option value="Femme">Femme</option>
+                                <option value="">اختيار...</option>
+                                <option value="1">ذكر</option>
+                                <option value="2">انثى</option>
                             </select>
                             <div class="invalid-text">
-                                Un Sexe est requis.
+                                يرجى اختيار الجنس.
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="form-label">Adresse E-mail</label>
+                            <label class="form-label">البريد الإلكتروني</label>
                             <input type="email" class="form-control" name="email" placeholder="exemple@mail.com" value="" required>
                             <div class="invalid-text">
-                                Un email valide est requis.
+                                يرجى ادخال البريد الإلكتروني.
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">Téléphone</label>
-                            <input type="tel" class="form-control" name="phone" placeholder="0555 XX XX XX" value="" required>
+                            <label class="form-label">الهاتف</label>
+                            <input type="tel" class="form-control" name="phone" placeholder="مثال :  55 55 55 0555 " value="" required>
                             <div class="invalid-text">
-                                Un téléphone est requis.
+                                يرجى ادخال الهاتف.
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-8">
-                            <label class="form-label">Adresse</label>
+                            <label class="form-label">العنوان</label>
                             <input type="email" class="form-control" name="address" placeholder="XX rue exemple, Alger, Algérie" value="" required>
                             <div class="invalid-text">
-                                Un adresse valide est requis.
+                                يرجى ادخال العنوان.
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label class="form-label">Wilaya</label>
+                            <label class="form-label">الولاية</label>
                             <select class="form-select" name="wilaya" required>
-                                <option value="">Choisissez votre wilaya</option>
-                                <option value="1">Adrar</option>
-                                <option value="2">Chlef</option>
-                                <option value="3">Laghouat</option>
-                                <option value="4">Oum El Bouaghi</option>
-                                <option value="5">Batna</option>
-                                <option value="6">Bejaia</option>
-                                <option value="7">Biskra</option>
-                                <option value="8">Bechar</option>
-                                <option value="9">Blida</option>
-                                <option value="10">Bouira</option>
-                                <option value="11">Tamanrasset</option>
-                                <option value="12">Tebessa</option>
-                                <option value="13">Tlemcen</option>
-                                <option value="14">Tiaret</option>
-                                <option value="15">Tizi Ouzou</option>
-                                <option value="16">Alger</option>
-                                <option value="17">Djelfa</option>
-                                <option value="18">Jijel</option>
-                                <option value="19">Setif</option>
-                                <option value="20">Saida</option>
-                                <option value="21">Skikda</option>
-                                <option value="22">Sidi Bel Abbes</option>
-                                <option value="23">Annaba</option>
-                                <option value="24">Guelma</option>
-                                <option value="25">Constantine</option>
-                                <option value="26">Medea</option>
-                                <option value="27">Mostaganem</option>
-                                <option value="28">MSila</option>
-                                <option value="29">Mascara</option>
-                                <option value="30">Ouargla</option>
-                                <option value="31">Oran</option>
-                                <option value="32">El Bayadh</option>
-                                <option value="33">Illizi</option>
-                                <option value="34">Bordj Bou Arreridj</option>
-                                <option value="35">Boumerdes</option>
-                                <option value="36">El Tarf</option>
-                                <option value="37">Tindouf</option>
-                                <option value="38">Tissemsilt</option>
-                                <option value="39">El Oued</option>
-                                <option value="40">Khenchela</option>
-                                <option value="41">Souk Ahras</option>
-                                <option value="42">Tipaza</option>
-                                <option value="43">Mila</option>
-                                <option value="44">Ain Defla</option>
-                                <option value="45">Naama</option>
-                                <option value="46">Ain Temouchent</option>
-                                <option value="47">Ghardaia</option>
-                                <option value="48">Relizane</option>
-                                <option value="49">El M'Ghair</option>
-                                <option value="50">El Menia</option>
-                                <option value="51">Ouled Djellal</option>
-                                <option value="52">Bordj Baji Mokhtar</option>
-                                <option value="53">Béni Abbès</option>
-                                <option value="54">Timimoun</option>
-                                <option value="55">Touggourt</option>
-                                <option value="56">Djanet</option>
-                                <option value="57">In Salah</option>
-                                <option value="58">In Guezzam</option>
+                                <option value="">اختيار...</option>
+                                <option value="1">أدرار</option>
+                                <option value="2">الشلف</option>
+                                <option value="3">الأغواط</option>
+                                <option value="4">أم البواقي</option>
+                                <option value="5">باتنة</option>
+                                <option value="6">بجاية</option>
+                                <option value="7">بسكرة</option>
+                                <option value="8">بشار</option>
+                                <option value="9">البليدة</option>
+                                <option value="10">البويرة</option>
+                                <option value="11">تمنراست</option>
+                                <option value="12">تبسة</option>
+                                <option value="13">تلمسان</option>
+                                <option value="14">تيارت</option>
+                                <option value="15">تيزي وزو</option>
+                                <option value="16">الجزائر</option>
+                                <option value="17">الجلفة</option>
+                                <option value="18">جيجل</option>
+                                <option value="19">سطيف</option>
+                                <option value="20">سعيدة</option>
+                                <option value="21">سكيكدة</option>
+                                <option value="22">سيدي بلعباس</option>
+                                <option value="23">عنابة</option>
+                                <option value="24">قالمة</option>
+                                <option value="25">قسنطينة</option>
+                                <option value="26">المدية</option>
+                                <option value="27">مستغانم</option>
+                                <option value="28">المسيلة</option>
+                                <option value="29">معسكر</option>
+                                <option value="30">ورقلة</option>
+                                <option value="31">وهران</option>
+                                <option value="32">البيض</option>
+                                <option value="33">اليزي</option>
+                                <option value="34">برج بوعريريج</option>
+                                <option value="35">بومرداس</option>
+                                <option value="36">الطارف</option>
+                                <option value="37">تندوف</option>
+                                <option value="38">تسمسيلت</option>
+                                <option value="39">الوادي</option>
+                                <option value="40">خنشلة</option>
+                                <option value="41">سوق أهراس</option>
+                                <option value="42">تيبازة</option>
+                                <option value="43">ميلة</option>
+                                <option value="44">عين الدفلىa</option>
+                                <option value="45">النعامة</option>
+                                <option value="46">عين تموشنت</option>
+                                <option value="47">غرداية</option>
+                                <option value="48">غليزان</option>
+                                <option value="49">المغير</option>
+                                <option value="50">المنيعة</option>
+                                <option value="51">أولاد جلال</option>
+                                <option value="52">برج باجي مختار</option>
+                                <option value="53">بني عباس</option>
+                                <option value="54">تيميمون</option>
+                                <option value="55">تقرت</option>
+                                <option value="56">جانت</option>
+                                <option value="57">عين صالح	</option>
+                                <option value="58">عين قزّام	</option>
                             </select>
                             <div class="invalid-text">
-                                Un wilaya valide est requis.
+                                يرجى اختيار الولاية
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="form-label">Photo d'identité</label>
+                            <label class="form-label">صورة شخصية</label>
                             <input type="file" accept="image/*" class="form-control" name="photo" placeholder="insérer"
                                    value="" required>
                             <div class="invalid-text">
-                                Un Photo d'identité valide est requis.
+                                يرجى ادخال الصورة شخصية.
                             </div>
                         </div>
                     </div>
@@ -498,7 +503,7 @@
                 <div class="form-stepper-content-step">
                     <div class="row">
                         <div class="col-sm-6 condidat-img" id="condidat-1-preview">
-                            <h2 class="text-center mb-3">Condidat 1</h2>
+                            <h2 class="text-center mb-3">المترشح 1</h2>
                             <h5>
                                 <span data-replace="lastName"></span> <span data-replace="firstName"></span>
                             </h5>
@@ -511,7 +516,7 @@
                             <div><span data-replace="address"></span> - <span data-replace="wilaya"></span></div>
                         </div>
                         <div class="col-sm-6 condidat-img" id="condidat-2-preview">
-                            <h2 class="text-center mb-3">Condidat 2</h2>
+                            <h2 class="text-center mb-3">المترشح 2</h2>
                             <h5>
                                 <span data-replace="lastName"></span> <span data-replace="firstName"></span>
                             </h5>
@@ -527,23 +532,21 @@
                     <div class="row">
                         <div class="col-sm-12 mt-2">
                             <div class="form-check">
-                                <label class="form-check-label" for="accept-condition">J’accepte <a
-                                        href="../assets/docs/Termes_et_Conditions.pdf" target="_blank">les conditions
-                                    générales d'utilisation</a></label>
+                                <label class="form-check-label" for="accept-condition">أوافق على <a
+                                        href="../assets/docs/Termes_et_Conditions.pdf" target="_blank">الشروط والأحكام العامة</a></label>
                                 <input id="accept-condition" name="accept-condition" type="checkbox"
                                        class="form-check-input" required>
                                 <div class="invalid-text">
-                                    veuillez accepter et cocher la case pour continuer
+                                    يرجى القبول ووضع علامة في المربع للمتابعة
                                 </div>
                             </div>
                             <div class="form-check">
-                                <label class="form-check-label" for="accept-politique">J’accepte <a
-                                        href="../assets/docs/Politique_de_Confidentialité.pdf" target="_blank">la
-                                    politique de confidentialité</a></label>
+                                <label class="form-check-label" for="accept-politique">أوافق على <a
+                                        href="../assets/docs/Politique_de_Confidentialité.pdf" target="_blank">سياسة الخصوصية</a></label>
                                 <input id="accept-politique" name="accept-politique" type="checkbox"
                                        class="form-check-input" required>
                                 <div class="invalid-text">
-                                    veuillez accepter et cocher la case pour continuer
+                                    يرجى القبول ووضع علامة في المربع للمتابعة
                                 </div>
                             </div>
                         </div>
@@ -551,15 +554,15 @@
                 </div>
                 <div class="form-stepper-content-step">
                     <div class="d-center flex-column my-4">
-                        <h1 class="text-center">FÉLICITATION !</h1>
-                        <p class="text-center text-uppercase fs-3">Votre candidature a bien été retenue, nousvous contacterons bientôt</p>
+                        <h1 class="text-center">هنيئًا !</h1>
+                        <p class="text-center text-uppercase fs-3">تم قبول طلبك، سنتصل بك قريبًا</p>
                     </div>
 
                 </div>
             </div>
             <div class="form-stepper-footer">
-                <button class="btn btn-secondary btn-round text-uppercase" data-role="prev">Retour</button>
-                <button class="btn btn-primary btn-round text-uppercase" data-role="next">Suivant3</button>
+                <button class="btn btn-secondary btn-round text-uppercase" data-role="prev">السابق</button>
+                <button class="btn btn-primary btn-round text-uppercase" data-role="next">التالي</button>
             </div>
         </div>
 

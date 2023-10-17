@@ -108,6 +108,25 @@
     color: var(--color-red);
     font-size: 0.75rem;
     display: none;
+    width: 100%;
+}
+
+.ar .form-stepper .form-check .form-check-input{
+    margin-right: -1.5em;
+    margin-left: unset;
+    position: absolute;
+}
+.ar .form-stepper .form-check .form-check-label{
+    margin-inline-start: 1em;
+}
+.ar .form-stepper .form-check{
+    position: relative;
+    /*direction: ltr;*/
+    display: flex;
+    flex-wrap: wrap;
+    /*flex-direction: row-reverse;*/
+    padding-right: 1.5em;
+    padding-left: unset;
 }
 
 @media only screen and (min-width: 991px) {
