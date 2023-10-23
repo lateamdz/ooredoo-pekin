@@ -359,11 +359,11 @@ footer .list-inline-item a {
     right: 10%;
 }
 
-.form-section .condidat-img {
+.form-section .candidat-img {
     padding: 16px;
 }
 
-.form-section .condidat-img > img {
+.form-section .candidat-img > img {
     max-height: 300px;
     width: 100%;
     background-color: var(--color-grey);

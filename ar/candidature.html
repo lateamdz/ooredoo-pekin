@@ -83,7 +83,7 @@
                         photo: {validation: (value, form) => Boolean(value)},
                     };
                     const bindStepData = (step, form) => {
-                        const previewInputs = document.getElementById(`condidat-${step}-preview`);
+                        const previewInputs = document.getElementById(`candidat-${step}-preview`);
                         const elementsWithAttribute = previewInputs.querySelectorAll('[data-replace]');
                         const previewImage = previewInputs.querySelector('img');
                         const selectors={
@@ -502,12 +502,12 @@
                 </div>
                 <div class="form-stepper-content-step">
                     <div class="row">
-                        <div class="col-sm-6 condidat-img" id="condidat-1-preview">
+                        <div class="col-sm-6 candidat-img" id="candidat-1-preview">
                             <h2 class="text-center mb-3">المترشح 1</h2>
                             <h5>
                                 <span data-replace="lastName"></span> <span data-replace="firstName"></span>
                             </h5>
-                            <img src="" alt="condidat" class="mb-3">
+                            <img src="" alt="candidat" class="mb-3">
                             <div data-replace="birthday"></div>
                             <div data-replace="familySituation"></div>
                             <div data-replace="sexe"></div>
@@ -515,12 +515,12 @@
                             <div data-replace="phone"></div>
                             <div><span data-replace="address"></span> - <span data-replace="wilaya"></span></div>
                         </div>
-                        <div class="col-sm-6 condidat-img" id="condidat-2-preview">
+                        <div class="col-sm-6 candidat-img" id="candidat-2-preview">
                             <h2 class="text-center mb-3">المترشح 2</h2>
                             <h5>
                                 <span data-replace="lastName"></span> <span data-replace="firstName"></span>
                             </h5>
-                            <img src="" alt="condidat" class="mb-3">
+                            <img src="" alt="candidat" class="mb-3">
                             <div data-replace="birthday"></div>
                             <div data-replace="familySituation"></div>
                             <div data-replace="sexe"></div>
