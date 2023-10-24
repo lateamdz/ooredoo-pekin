@@ -158,14 +158,14 @@ footer .list-inline-item a {
     width: 50%;
     height: 100%;
     top: 0;
-    left: 0;
+    left: 50%;
     padding: 50px;
 }
 
 .hero-section .bg-text-img {
     position: absolute;
     width: 50%;
-    left: 50%;
+    left: 0;
     height: 100%;
     /*background-color: blue;*/
     top: 0;
@@ -176,9 +176,9 @@ footer .list-inline-item a {
 .hero-section .bg-links {
     position: absolute;
     bottom: 0;
-    left: 50%;
+    left: 10%;
     width: 25%;
-    height: 50%;
+    height: 40%;
     /*background-color: yellow;*/
     padding: 20px;
     display: flex;
@@ -214,14 +214,14 @@ footer .list-inline-item a {
     width: 50%;
     height: 100%;
     top: 0;
-    left: 50%;
+    left: 0;
     padding: 50px;
 }
 
 .ar .hero-section .bg-text-img {
     position: absolute;
     width: 50%;
-    left: 0;
+    left: 50%;
     height: 100%;
     /*background-color: blue;*/
     top: 0;
@@ -232,10 +232,8 @@ footer .list-inline-item a {
 .ar .hero-section .bg-links {
     position: absolute;
     bottom: 0;
-    right: 50%;
+    right: 10%;
     left: auto;
-    width: 25%;
-    height: 50%;
     /*background-color: yellow;*/
     padding: 20px;
     display: flex;
