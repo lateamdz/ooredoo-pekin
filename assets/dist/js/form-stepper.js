@@ -1,11 +1,13 @@
 const classToggle = (element, classes = {}) => {
-    Object.entries(classes).forEach(([className, condition]) => {
-        if (condition) {
-            element.classList.add(className)
-        } else {
-            element.classList.remove(className)
-        }
-    });
+    if(element!==null) {
+        Object.entries(classes).forEach(([className, condition]) => {
+            if (condition) {
+                element.classList.add(className)
+            } else {
+                element.classList.remove(className)
+            }
+        });
+    }
 };
 
 class FormStepper {

@@ -20,6 +20,7 @@
 
     <link href="assets/dist/css/custom.css" rel="stylesheet">
     <link href="assets/dist/css/form-stepper.css" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -136,11 +137,15 @@
                         3: {
                             nextText: 'Confirmer',
                             onSubmit: (data) => {
+                                console.log(data);
                                 document.getElementById("title-step").innerText="Finalisation"
                             },
                             form: {
                                 "accept-condition": {validation: (value, form) => Boolean(value)},
                                 "accept-politique": {validation: (value, form) => Boolean(value)},
+                                "link-between-candidates": {validation: (value, form) => true},
+                                "why-participate": {validation: (value, form) => true},
+                                "have-you-participated": {validation: (value, form) => true},
                             }
                         },
                         4: {
@@ -524,6 +529,24 @@
                             <div><span data-replace="address"></span> - <span data-replace="wilaya"></span></div>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row mt-4">
+                        <div class="col-sm-12">
+                            <label >Quel est le lien du binôme ?</label>
+                            <br>
+                            <input type="text" class="form-control" name="link-between-candidates" placeholder="" value="" />
+                        </div>
+                        <div class="col-sm-12 mt-2">
+                            <label >Pourquoi souhaitez-vous participer à l'aventure ensemble ?</label>
+                            <br>
+                            <textarea  class="form-control" name="why-participate" placeholder="" rows="2"></textarea>
+                        </div>
+                        <div class="col-sm-12 mt-2">
+                            <label >Avez-vous déja participé à une émission ? Si oui, laquelle ?</label>
+                            <br>
+                            <textarea  class="form-control" name="have-you-participated" placeholder="" rows="2"></textarea>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-12 mt-2">
                             <div class="form-check">
@@ -546,6 +569,7 @@
                                     veuillez accepter et cocher la case pour continuer
                                 </div>
                             </div>
+                            <div class="g-recaptcha" data-sitekey="your-site-key"></div>
                         </div>
                     </div>
                 </div>
